@@ -35,8 +35,8 @@ app.get('/yelp', (request, response) => {
 });
 
 app.get('/national', (request, response) => {
-  const { lat, lon } = request.query;
-  getNational(lat, lon)
+  const { query } = request.query;
+  getNational(query)
     .then(parks => response.status(200).send(parks))
     .catch(error => {
       console.error(error);
