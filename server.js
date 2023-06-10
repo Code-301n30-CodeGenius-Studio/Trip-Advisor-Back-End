@@ -9,18 +9,18 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(cors());
 
-const getWeatherAndAirQuality = require('./Modules/weather');
+const getWeather = require('./Modules/weather');
 const getYelp = require('./Modules/yelp');
 const getLocation = require('./Modules/locationIQ');
 const getNational = require('./Modules/National');
 
 app.get('/weather',(request, response) => {
   const { lat, lon } = request.query;
-  getWeatherAndAirQuality(lat, lon)
+  getWeather(lat,lon)
     .then(summaries => response.status(200).send(summaries))
     .catch(error => {
       console.error(error);
-      response.status(500).send('Sorry, something went wrong! ' + error.message);
+      response.status(500).send('Sorry, something went wrong! '+ error.message);
     });
 });
 

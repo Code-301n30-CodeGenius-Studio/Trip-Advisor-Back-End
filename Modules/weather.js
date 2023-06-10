@@ -1,30 +1,25 @@
 const axios = require('axios');
 
-async function getWeatherAndAirQuality(latitude, longitude) {
+async function getWeather(latitude, longitude) {
   try {
-    const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?days=5&lat=${latitude}&lon=${longitude}&key=${process.env.WEATHER_API_KEY}`;
-    const airQualityUrl = `https://api.weatherbit.io/v2.0/current/airquality?lat=${latitude}&lon=${longitude}&key=${process.env.WEATHER_API_KEY}`;
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&days=5&lat=${latitude}&lon=${longitude}&units=I`;
+    console.log('Request URL:', url);
+    const response = await axios.get(url);
 
-    const weatherResponse = await axios.get(weatherUrl);
-    // const airQualityResponse = await axios.get(airQualityUrl);
-    return weatherResponse.data;
-    // const weatherData = weatherResponse.data.data.map(day => new Weather(day, airQualityResponse.data.data[0]));
-    // return weatherData;
-  } catch (error) {
-    console.error(`Error getting weather or air quality data: ${error}`);
+    const weatherData = response.data.data.map(day => new Weather(day));
+    return weatherData;
+  } catch(error) {
+    console.error(`Error getting weather data: ${error}`);
     throw error;
   }
 }
 
 class Weather {
-  constructor(day, airQuality) {
+  constructor(day) {
     this.forecast = day.weather.description;
     this.time = day.valid_date;
-    this.airQuality = airQuality.aqi;
+    this.temperature = day.temp;
   }
 }
 
-
-module.exports = getWeatherAndAirQuality;
-
-
+module.exports = getWeather;
