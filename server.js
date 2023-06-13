@@ -5,9 +5,13 @@ const express = require('express');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
+const UserModel = require('./Model/User');
+
+
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 const getWeather = require('./Modules/weather');
 const getYelp = require('./Modules/yelp');
@@ -48,6 +52,39 @@ app.get('/locationIQ', (request, response) => {
   const { city } = request.query;
   getLocation(city)
     .then(location => response.status(200).send(location))
+    .catch(error => {
+      console.error(error);
+      response.status(500).send('Sorry, something went wrong! ' + error.message);
+    });
+});
+
+app.post('/users', (request, response) => {
+  const newUser = new UserModel({
+    name: request.body.name,
+    email: request.body.email,
+    parkName: request.body.parkName,
+  });
+
+  newUser.save()
+    .then(user => response.status(200).send(user))
+    .catch(error => {
+      console.error(error);
+      response.status(500).send('Sorry, something went wrong! ' + error.message);
+    });
+});
+
+app.put('/users/:id', (request, response) => {
+  UserModel.findByIdAndUpdate(request.params.id, request.body, { new: true })
+    .then(user => response.status(200).send(user))
+    .catch(error => {
+      console.error(error);
+      response.status(500).send('Sorry, something went wrong! ' + error.message);
+    });
+
+});
+app.delete('/users/:id', (request, response) => {
+  UserModel.findByIdAndRemove(request.params.id)
+    .then(() => response.status(200).send('User removed.'))
     .catch(error => {
       console.error(error);
       response.status(500).send('Sorry, something went wrong! ' + error.message);
