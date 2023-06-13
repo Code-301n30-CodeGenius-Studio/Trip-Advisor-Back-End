@@ -6,9 +6,9 @@ async function getYelp(term, location, lat, lon) {
     const headers = {
       Authorization: `Bearer ${process.env.YELP_API_KEY}`,
     };
-    
+
     const response = await axios.get(url , { headers });
-    const reviewUrl = `https://api.yelp.com/v3/businesses/${response.data.businesses[0].id}/reviews?limit=20&sort_by=yelp_sort`
+    const reviewUrl = `https://api.yelp.com/v3/businesses/${response.data.businesses[0].id}/reviews?limit=20&sort_by=yelp_sort`;
     const reviewResponse = await axios.get(reviewUrl, {headers});
     // return reviewResponse.data
     const yelpData = reviewResponse.data.reviews.map(business => new Yelp(business));
@@ -22,7 +22,7 @@ async function getYelp(term, location, lat, lon) {
 class Yelp {
   constructor(business) {
     this.rating = business.rating;
-    this.text = business.text
+    this.text = business.text;
     this.review_count = business.review_count;
   }
 }

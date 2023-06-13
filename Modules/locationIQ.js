@@ -21,8 +21,8 @@ class Location {
   constructor(location) {
     this.place_id = location.place_id;
     this.display_name = location.display_name;
-    this.lat = location.lat
-    this.lon = location.lon
+    this.lat = location.lat;
+    this.lon = location.lon;
   }
 }
 
