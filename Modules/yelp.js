@@ -1,15 +1,17 @@
 const axios = require('axios');
 
-async function getYelp(term, location) {
+async function getYelp(term, location, lat, lon) {
   try {
-    const url = `https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}`;
+    const url = `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lon}&term=${term}&sort_by=best_match&limit=20`;
     const headers = {
       Authorization: `Bearer ${process.env.YELP_API_KEY}`,
     };
-
-    const response = await axios.get(url, { headers });
-
-    const yelpData = response.data.businesses.map(business => new Yelp(business));
+    
+    const response = await axios.get(url , { headers });
+    const reviewUrl = `https://api.yelp.com/v3/businesses/${response.data.businesses[0].id}/reviews?limit=20&sort_by=yelp_sort`
+    const reviewResponse = await axios.get(reviewUrl, {headers});
+    // return reviewResponse.data
+    const yelpData = reviewResponse.data.reviews.map(business => new Yelp(business));
     return yelpData;
   } catch (error) {
     console.error(`Error getting Yelp data: ${error}`);
@@ -19,7 +21,8 @@ async function getYelp(term, location) {
 
 class Yelp {
   constructor(business) {
-    this.name = business.name;
+    this.rating = business.rating;
+    this.text = business.text
     this.review_count = business.review_count;
   }
 }
