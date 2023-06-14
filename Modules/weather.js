@@ -18,6 +18,8 @@ async function getWeather(latitude, longitude) {
 
 class Weather {
   constructor(day) {
+    this.code = day.weather.code;
+    this.weatherIcon = day.weather.icon;
     this.forecast = day.weather.description;
     this.time = day.valid_date;
     this.temperature = day.temp;
