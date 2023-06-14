@@ -9,6 +9,7 @@
   "author": "Jonathan Brooks, Sarah Mahdi, Zeegii Ulziibaatar",
   "license": "ISC",
   "dependencies": {
+    "auth0": "^3.4.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
