@@ -26,6 +26,7 @@ app.use(verifyUser);
 const getWeatherAndAirQuality = require('./Modules/weather');
 const getYelp = require('./Modules/yelp');
 const getLocation = require('./Modules/locationIQ');
+
 const getNational = require('./Modules/national');
 const handleSearch = require('./Modules/handleSearch');
 
@@ -36,6 +37,7 @@ app.post('/users', handleSearch.postUsers);
 app.delete('/users/:id', handleSearch.deleteUsers);
 
 app.put('users/:id', handleSearch.updateUsers);
+
 
 app.get('/weather',(request, response) => {
   const { lat, lon } = request.query;

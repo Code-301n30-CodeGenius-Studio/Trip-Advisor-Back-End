@@ -7,7 +7,6 @@ async function getLocation(city) {
     let config = {headers:{'Referer': 'http://localhost:3001'}};
 
     const response = await axios.get(url,config);
-    // console.log(response)
     const locationData = response.data.map(location => new Location(location));
 
     return locationData;
