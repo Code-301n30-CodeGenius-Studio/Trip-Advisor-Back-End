@@ -16,7 +16,7 @@ app.use(express.json());
 const getWeatherAndAirQuality = require('./Modules/weather');
 const getYelp = require('./Modules/yelp');
 const getLocation = require('./Modules/locationIQ');
-const getNational = require('./Modules/national');
+const getNational = require('./Modules/National');
 
 app.get('/weather',(request, response) => {
   const { lat, lon } = request.query;
