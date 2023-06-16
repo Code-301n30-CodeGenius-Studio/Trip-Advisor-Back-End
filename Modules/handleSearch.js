@@ -6,8 +6,9 @@ const handleSearch = {};
 
 handleSearch.getUsers = function (req, res, next) {
   let queryObject = { email: req.user.email };
-  if (req.query.name) {
-    queryObject = { name: req.query.name };
+  // console.log(email)
+  if (req.query.parkName) {
+    queryObject = { parkName: req.query.parkName };
     console.log(queryObject);
   }
   // ()=>console.log(handleSearch);
@@ -27,7 +28,10 @@ handleSearch.postUsers = function (req, res, next) {
 };
 
 handleSearch.deleteUsers = function (req, res, next) {
-  const { id } = req.params;
+  const {id} = req.params;
+  console.log(req.params);
+  // console.log(req.user.email)
+
   Search.findByIdAndDelete(id)
     .then((deletedUser) => res.status(204).send(deletedUser))
     .catch((err) => next(err));

@@ -7,14 +7,12 @@ async function getYelp(term, location, lat, lon) {
       Authorization: `Bearer ${process.env.YELP_API_KEY}`,
     };
 
-    const response = await axios.get(url, { headers });
-    // console.log(response.data);
-    if (response.data.businesses.length > 0) {
-      const reviewUrl = `https://api.yelp.com/v3/businesses/${response.data.businesses[0].id}/reviews?limit=20&sort_by=yelp_sort`;
-      const reviewResponse = await axios.get(reviewUrl, { headers });
-      const yelpData = reviewResponse.data.reviews.map(business => new Yelp(business));
-      return yelpData;
-    }
+    const response = await axios.get(url , { headers });
+    const reviewUrl = `https://api.yelp.com/v3/businesses/${response.data.businesses[0].id}/reviews?limit=20&sort_by=yelp_sort`;
+    const reviewResponse = await axios.get(reviewUrl, {headers});
+    // return reviewResponse.data
+    const yelpData = reviewResponse.data.reviews.map(business => new Yelp(business));
+    return yelpData;
   } catch (error) {
     console.error(`Error getting Yelp data: ${error}`);
     throw error;
