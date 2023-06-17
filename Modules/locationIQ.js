@@ -3,7 +3,7 @@ const axios = require('axios');
 async function getLocation(city) {
   try {
     const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.LOCATIONIQ_API_KEY}&q=${city}&format=json`;
-    console.log(url);
+    // console.log(url);
     let config = {headers:{'Referer': 'http://localhost:3001'}};
 
     const response = await axios.get(url,config);

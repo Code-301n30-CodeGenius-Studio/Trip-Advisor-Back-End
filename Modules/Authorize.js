@@ -13,7 +13,9 @@ function verifyUser(request, response, next) {
   }
 
   try {
+    console.log('message here');
     const token = request.headers.authorization.split(' ')[1];
+    console.log(token);
     jwt.verify(token, getKey, {}, valid);
   } catch (error) {
     next('Not Authorized');
@@ -34,7 +36,7 @@ const client = jwksClient({
 function getKey(header, callback) {
   client.getSigningKey(header.kid, function (err, key) {
     const signingKey = key.publicKey || key.rsaPublicKey;
-    console.log(signingKey);
+    // console.log(signingKey);
     callback(null, signingKey);
   });
 }
