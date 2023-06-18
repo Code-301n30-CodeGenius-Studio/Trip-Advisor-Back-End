@@ -1,4 +1,4 @@
-# Trip-Advisor-Back-End Group Project
+# Park-Advisor-Back-End Group Project
 
 ## *Software Requirement* ##
 
