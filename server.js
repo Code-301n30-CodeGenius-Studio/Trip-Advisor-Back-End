@@ -25,7 +25,7 @@ const getWeatherAndAirQuality = require('./Modules/weather');
 const getYelp = require('./Modules/yelp');
 const getLocation = require('./Modules/locationIQ');
 
-const getNational = require('./Modules/national');
+const getNational = require('./Modules/National');
 const handleSearch = require('./Modules/handleSearch');
 
 app.use(verifyUser);
